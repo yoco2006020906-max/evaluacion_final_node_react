@@ -6,7 +6,7 @@ const { generateToken, generateRefreshToken, verifyRefreshToken } = require('../
 class AuthService {
   async register(userData) {
     // Verificar si el email ya existe
-    const existingUser = await User.findOne({ email: userData.email });
+    const existingUser = await User.findOne({ email: userData.email }); 
     if (existingUser) {
       throw new Error('El email ya está registrado');
     }

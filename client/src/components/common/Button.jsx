@@ -14,12 +14,12 @@ const Button = ({
   const baseClasses = 'font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2';
   
   const variants = {
-    primary: 'bg-indigo-600 text-white hover:bg-indigo-700 active:bg-indigo-800 disabled:bg-indigo-300',
-    secondary: 'bg-gray-600 text-white hover:bg-gray-700 active:bg-gray-800 disabled:bg-gray-300',
+    primary: 'bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800 disabled:bg-emerald-300',
+    secondary: 'bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800 disabled:bg-emerald-300',
     success: 'bg-green-600 text-white hover:bg-green-700 active:bg-green-800 disabled:bg-green-300',
     danger: 'bg-red-600 text-white hover:bg-red-700 active:bg-red-800 disabled:bg-red-300',
-    outline: 'bg-transparent border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 disabled:border-indigo-300 disabled:text-indigo-300',
-    ghost: 'bg-transparent text-indigo-600 hover:bg-indigo-50 disabled:text-indigo-300'
+    outline: 'bg-transparent border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-50 disabled:border-emerald-300 disabled:text-emerald-300',
+    ghost: 'bg-transparent text-emerald-600 hover:bg-emerald-50 disabled:text-emerald-300'
   };
 
   const sizes = {

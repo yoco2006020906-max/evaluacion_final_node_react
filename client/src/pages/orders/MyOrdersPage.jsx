@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Package, ShoppingBag, Loader, CheckCircle, Clock, AlertCircle, RefreshCw } from 'lucide-react';
+import { Package, ShoppingBag, Loader, CheckCircle, Clock, AlertCircle, RefreshCw, TrendingUp, Calendar } from 'lucide-react';
 import Header from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
 import OrderCard from '../../components/orders/OrderCard';
@@ -61,23 +61,21 @@ const OrdersPage = () => {
   // Estado de carga
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-emerald-100">
+      <div className="min-h-screen bg-gradient-to-br from-emerald-900 via-green-800 to-teal-900">
         <Header />
-        <div className="container mx-auto px-4 py-12">
-          <div className="flex flex-col items-center justify-center text-center max-w-xl mx-auto bg-white/80 backdrop-blur-xl rounded-2xl p-8 shadow-lg border border-emerald-200/50">
-            <div className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center shadow-lg border-4 border-white/30 mb-6">
-              <Loader className="w-10 h-10 text-white animate-spin" />
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex flex-col items-center justify-center min-h-[60vh]">
+            <div className="relative">
+              <div className="w-20 h-20 border-4 border-emerald-200/30 border-t-emerald-400 rounded-full animate-spin"></div>
+              <div className="absolute inset-0 w-20 h-20 border-4 border-transparent border-b-teal-400 rounded-full animate-spin" style={{animationDirection: 'reverse', animationDuration: '1s'}}></div>
             </div>
-            <h2 className="text-3xl font-bold bg-gradient-to-r from-emerald-900 via-gray-900 to-emerald-700 bg-clip-text text-transparent mb-3">
-              Cargando tus pedidos
-            </h2>
-            <p className="text-base text-emerald-700 font-medium mb-6">
-              Preparando tu historial de compras...
-            </p>
-            <div className="flex items-center gap-2 text-emerald-600">
-              <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce"></div>
-              <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-              <div className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+            <div className="mt-8 text-center">
+              <h2 className="text-2xl font-bold text-white mb-2">
+                Cargando tus pedidos
+              </h2>
+              <p className="text-emerald-200">
+                Preparando tu historial de compras...
+              </p>
             </div>
           </div>
         </div>
@@ -89,28 +87,32 @@ const OrdersPage = () => {
   // Estado de error
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-rose-50 via-red-50 to-rose-100">
+      <div className="min-h-screen bg-gradient-to-br from-emerald-900 via-green-800 to-teal-900">
         <Header />
-        <div className="container mx-auto px-4 py-12">
-          <div className="flex flex-col items-center justify-center text-center max-w-xl mx-auto bg-white/80 backdrop-blur-xl rounded-2xl p-8 shadow-lg border border-rose-200/50">
-            <div className="w-20 h-20 bg-gradient-to-br from-rose-500 to-red-500 rounded-2xl flex items-center justify-center shadow-lg border-4 border-white/30 mb-6 group hover:rotate-12 transition-all duration-300">
-              <AlertCircle className="w-10 h-10 text-white" />
+        <div className="container mx-auto px-4 py-8">
+          <div className="max-w-lg mx-auto">
+            <div className="bg-white/10 backdrop-blur-xl rounded-xl p-8 border border-red-400/30 shadow-2xl">
+              <div className="flex flex-col items-center text-center">
+                <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mb-4">
+                  <AlertCircle className="w-8 h-8 text-red-400" />
+                </div>
+                <h2 className="text-xl font-bold text-white mb-2">
+                  Error al cargar pedidos
+                </h2>
+                <p className="text-emerald-200 text-sm mb-6">
+                  {error}
+                </p>
+                <Button
+                  variant="primary"
+                  size="md"
+                  onClick={fetchOrders}
+                  className="px-5 py-2.5 text-sm font-bold bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600"
+                >
+                  <RefreshCw className="w-4 h-4 mr-2" />
+                  Reintentar Carga
+                </Button>
+              </div>
             </div>
-            <h2 className="text-3xl font-bold bg-gradient-to-r from-rose-900 via-gray-900 to-red-700 bg-clip-text text-transparent mb-3">
-              Error al cargar pedidos
-            </h2>
-            <p className="text-base text-rose-700 font-medium mb-6">
-              {error}
-            </p>
-            <Button
-              variant="primary"
-              size="md"
-              onClick={fetchOrders}
-              className="px-6 py-2.5 text-sm font-bold shadow-lg hover:shadow-rose-500/50 hover:scale-105 transition-all duration-300 bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-700 hover:to-red-700"
-            >
-              <RefreshCw className="w-4 h-4 mr-2" />
-              Reintentar Carga
-            </Button>
           </div>
         </div>
         <Footer />
@@ -121,28 +123,32 @@ const OrdersPage = () => {
   // Sin órdenes
   if (orders.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-emerald-100">
+      <div className="min-h-screen bg-gradient-to-br from-emerald-900 via-green-800 to-teal-900">
         <Header />
-        <div className="container mx-auto px-4 py-12">
-          <div className="flex flex-col items-center justify-center text-center max-w-xl mx-auto bg-white/80 backdrop-blur-xl rounded-2xl p-8 shadow-lg border border-emerald-200/50">
-            <div className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center shadow-lg border-4 border-white/30 mb-6 group hover:scale-110 transition-all duration-300">
-              <ShoppingBag className="w-10 h-10 text-white" />
+        <div className="container mx-auto px-4 py-8">
+          <div className="max-w-lg mx-auto">
+            <div className="bg-white/10 backdrop-blur-xl rounded-xl p-8 border border-emerald-400/30 shadow-2xl">
+              <div className="flex flex-col items-center text-center">
+                <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-400 rounded-full flex items-center justify-center mb-6 shadow-lg">
+                  <ShoppingBag className="w-10 h-10 text-emerald-900" />
+                </div>
+                <h2 className="text-2xl font-bold text-white mb-3">
+                  No tienes pedidos aún
+                </h2>
+                <p className="text-emerald-200 mb-6">
+                  Cuando realices tu primera compra, aparecerá aquí tu historial
+                </p>
+                <Button
+                  variant="primary"
+                  size="md"
+                  onClick={() => navigate('/products')}
+                  className="px-6 py-3 text-sm font-bold bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 shadow-xl"
+                >
+                  <Package className="w-5 h-5 mr-2" />
+                  Explorar Productos
+                </Button>
+              </div>
             </div>
-            <h2 className="text-3xl font-bold bg-gradient-to-r from-emerald-900 via-gray-900 to-emerald-700 bg-clip-text text-transparent mb-3">
-              No tienes pedidos aún
-            </h2>
-            <p className="text-base text-emerald-700 font-medium mb-6">
-              Cuando realices tu primera compra, aparecerá aquí tu historial
-            </p>
-            <Button
-              variant="primary"
-              size="md"
-              onClick={() => navigate('/products')}
-              className="px-6 py-2.5 text-sm font-bold shadow-lg hover:shadow-emerald-500/50 hover:scale-105 transition-all duration-300 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700"
-            >
-              <Package className="w-4 h-4 mr-2" />
-              Explorar Productos
-            </Button>
           </div>
         </div>
         <Footer />
@@ -152,27 +158,38 @@ const OrdersPage = () => {
 
   // Lista de órdenes
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-emerald-100">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-900 via-green-800 to-teal-900">
       <Header />
 
       <div className="container mx-auto px-4 py-6">
-        {/* Header */}
-        <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 shadow-lg border border-emerald-200/50 mb-6">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-            <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-900 via-gray-900 to-emerald-700 bg-clip-text text-transparent mb-2">
-                Mis Pedidos
-              </h1>
-              <div className="flex items-center gap-2 text-sm text-emerald-700 font-medium">
-                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                <span>Tienes <span className="text-emerald-600">{orders.length}</span> {orders.length === 1 ? 'pedido' : 'pedidos'}</span>
+        {/* Hero Header */}
+        <div className="relative overflow-hidden bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl p-6 mb-6 shadow-2xl border border-emerald-400/20">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32"></div>
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-black/5 rounded-full -ml-24 -mb-24"></div>
+          
+          <div className="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                <ShoppingBag className="w-7 h-7 text-white" />
+              </div>
+              <div>
+                <h1 className="text-2xl lg:text-3xl font-black text-white mb-1">
+                  Mis Pedidos
+                </h1>
+                <div className="flex items-center gap-2 text-emerald-100">
+                  <div className="w-2 h-2 bg-emerald-300 rounded-full animate-pulse"></div>
+                  <span className="text-sm font-semibold">
+                    {orders.length} {orders.length === 1 ? 'pedido activo' : 'pedidos en total'}
+                  </span>
+                </div>
               </div>
             </div>
+            
             <Button
               variant="primary"
               size="md"
               onClick={fetchOrders}
-              className="px-4 py-2 text-sm font-bold shadow-lg hover:shadow-emerald-500/50 hover:scale-105 transition-all duration-300 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 whitespace-nowrap"
+              className="px-5 py-2.5 text-sm font-bold bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-sm shadow-lg"
             >
               <RefreshCw className="w-4 h-4 mr-2" />
               Actualizar
@@ -180,61 +197,87 @@ const OrdersPage = () => {
           </div>
         </div>
 
-        {/* Filtros y ordenamiento */}
-        <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-lg p-4 mb-6 border border-emerald-200/50">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-            <div className="flex items-center gap-3 bg-emerald-500/10 rounded-xl p-3 border border-emerald-200/50">
-              <Package className="w-5 h-5 text-emerald-600" />
+        {/* Stats Row */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div className="bg-gradient-to-br from-emerald-500/20 to-emerald-600/20 backdrop-blur-xl rounded-xl p-4 border border-emerald-400/30 shadow-lg hover:shadow-emerald-500/20 hover:-translate-y-1 transition-all duration-300">
+            <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-bold text-emerald-900">Historial Completo</p>
-                <p className="text-xs text-emerald-700">Todas tus órdenes organizadas</p>
+                <p className="text-emerald-200 text-xs font-medium uppercase tracking-wide mb-1">Completados</p>
+                <p className="text-3xl font-black text-white">
+                  {orders.filter(o => o.status === 'completado').length}
+                </p>
+              </div>
+              <div className="w-12 h-12 bg-emerald-400/30 rounded-xl flex items-center justify-center">
+                <CheckCircle className="w-6 h-6 text-emerald-300" />
               </div>
             </div>
-            <div className="flex flex-col sm:flex-row gap-2">
-              <Button
-                variant="ghost"
-                size="md"
-                onClick={fetchOrders}
-                className="px-4 py-2 text-sm border border-emerald-300/50 hover:border-emerald-400 bg-emerald-50/50 backdrop-blur-xl font-medium"
-              >
-                <RefreshCw className="w-4 h-4 mr-2" />
-                Refrescar Lista
-              </Button>
+          </div>
+
+          <div className="bg-gradient-to-br from-amber-500/20 to-orange-600/20 backdrop-blur-xl rounded-xl p-4 border border-amber-400/30 shadow-lg hover:shadow-amber-500/20 hover:-translate-y-1 transition-all duration-300">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-amber-200 text-xs font-medium uppercase tracking-wide mb-1">En Proceso</p>
+                <p className="text-3xl font-black text-white">
+                  {orders.filter(o => o.status === 'pendiente').length}
+                </p>
+              </div>
+              <div className="w-12 h-12 bg-amber-400/30 rounded-xl flex items-center justify-center">
+                <Clock className="w-6 h-6 text-amber-300 animate-pulse" />
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-br from-teal-500/20 to-cyan-600/20 backdrop-blur-xl rounded-xl p-4 border border-teal-400/30 shadow-lg hover:shadow-teal-500/20 hover:-translate-y-1 transition-all duration-300">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-teal-200 text-xs font-medium uppercase tracking-wide mb-1">Total Pedidos</p>
+                <p className="text-3xl font-black text-white">
+                  {orders.length}
+                </p>
+              </div>
+              <div className="w-12 h-12 bg-teal-400/30 rounded-xl flex items-center justify-center">
+                <TrendingUp className="w-6 h-6 text-teal-300" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Info Banner */}
+        <div className="bg-gradient-to-r from-emerald-500/10 to-teal-500/10 backdrop-blur-xl rounded-xl p-4 mb-6 border border-emerald-400/20">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-emerald-400/20 rounded-lg flex items-center justify-center flex-shrink-0">
+              <Calendar className="w-5 h-5 text-emerald-300" />
+            </div>
+            <div>
+              <p className="text-sm font-bold text-white">Historial Completo de Pedidos</p>
+              <p className="text-xs text-emerald-200">Todas tus órdenes organizadas cronológicamente</p>
             </div>
           </div>
         </div>
 
         {/* Grid de órdenes */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-4 mb-6">
           {orders.map((order, index) => (
             <div 
               key={order.id} 
-              className={`group hover:-translate-y-1 transition-all duration-300 ${
-                index % 2 === 0 ? 'lg:hover:translate-x-2' : 'lg:hover:-translate-x-2'
-              }`}
+              className="transform hover:-translate-y-2 transition-all duration-300"
+              style={{
+                animationDelay: `${index * 50}ms`
+              }}
             >
               <OrderCard order={order} />
             </div>
           ))}
         </div>
 
-        {/* Stats finales */}
-        <div className="grid grid-cols-3 gap-4 mt-6">
-          <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-4 shadow-lg border border-emerald-200/50 text-center group hover:shadow-emerald-500/20 hover:-translate-y-1 transition-all duration-300">
-            <CheckCircle className="w-8 h-8 text-emerald-500 mx-auto mb-3 group-hover:scale-110 transition-all" />
-            <p className="text-2xl font-bold text-emerald-900 mb-1">{orders.filter(o => o.status === 'completado').length}</p>
-            <p className="text-xs text-emerald-700 font-medium">Completados</p>
-          </div>
-          <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-4 shadow-lg border border-emerald-200/50 text-center group hover:shadow-emerald-500/20 hover:-translate-y-1 transition-all duration-300">
-            <Clock className="w-8 h-8 text-amber-500 mx-auto mb-3 group-hover:scale-110 transition-all" />
-            <p className="text-2xl font-bold text-amber-900 mb-1">{orders.filter(o => o.status === 'pendiente').length}</p>
-            <p className="text-xs text-amber-700 font-medium">En Proceso</p>
-          </div>
-          <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-4 shadow-lg border border-emerald-200/50 text-center group hover:shadow-emerald-500/20 hover:-translate-y-1 transition-all duration-300">
-            <Package className="w-8 h-8 text-blue-500 mx-auto mb-3 group-hover:scale-110 transition-all" />
-            <p className="text-2xl font-bold text-emerald-900 mb-1">{orders.length}</p>
-            <p className="text-xs text-emerald-700 font-medium">Total Pedidos</p>
-          </div>
+        {/* Footer Info */}
+        <div className="bg-white/5 backdrop-blur-xl rounded-xl p-4 border border-emerald-400/20 text-center">
+          <p className="text-emerald-200 text-sm">
+            ¿Necesitas ayuda con un pedido? 
+            <button className="text-emerald-400 font-bold ml-2 hover:text-emerald-300 transition-colors">
+              Contacta soporte
+            </button>
+          </p>
         </div>
       </div>
 

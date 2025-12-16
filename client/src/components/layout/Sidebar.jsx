@@ -83,24 +83,7 @@ const Sidebar = () => {
         </nav>
       </div>
 
-      {/* Footer - Información adicional */}
-      <div className="flex-1 flex flex-col justify-end p-4 border-t border-emerald-500/30">
-        <div className="bg-white/10 backdrop-blur-xl rounded-xl p-4 border border-emerald-500/30 hover:border-emerald-400/50 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/25 group">
-          <div className="flex items-center gap-2 mb-3">
-            <div className="p-2 bg-emerald-500/20 rounded-lg border-2 border-emerald-400/50 group-hover:bg-emerald-500/30 transition-all">
-              <HelpCircle className="w-4 h-4 text-emerald-400 group-hover:text-emerald-300" />
-            </div>
-            <div>
-              <h3 className="text-sm font-black text-emerald-200 mb-0.5">Soporte & Ayuda</h3>
-              <p className="text-emerald-300 text-xs">Documentación completa disponible</p>
-            </div>
-          </div>
-          <button className="w-full flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-black text-xs rounded-lg shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-white/30 group-hover:shadow-emerald-500/50">
-            <BookOpen className="w-3.5 h-3.5" />
-            Ver Documentación
-          </button>
-        </div>
-      </div>
+    
     </aside>
   );
 };

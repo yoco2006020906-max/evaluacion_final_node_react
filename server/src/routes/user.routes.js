@@ -17,4 +17,4 @@ router.put('/:id', authenticate, authorize('admin'), updateUserValidator, valida
 router.delete('/:id', authenticate, authorize('admin'), userIdValidator, validateRequest, userController.deleteUser);
 router.post('/stats', authenticate, authorize('admin'), userController.getStats)
 
-module.exports = router;
+module.exports = router; 
